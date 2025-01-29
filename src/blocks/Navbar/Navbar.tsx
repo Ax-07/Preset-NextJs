@@ -7,7 +7,7 @@ import { useMediaQuery } from "@/src/hooks/useMediaQuery";
 
 const Navbar: React.FC = () => {
   const isDesktop = useMediaQuery("(min-width: 1024px)");
-  const fixedNav = "fixed top-0 left-0 z-10 w-full bg-primary-foreground";
+  const fixedNav = "fixed top-0 left-0 z-10 w-full bg-background";
 
   
   return (
