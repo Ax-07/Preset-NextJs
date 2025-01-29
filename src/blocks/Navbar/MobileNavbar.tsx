@@ -28,7 +28,7 @@ export const MobileNavbar: React.FC = React.memo(() => {
         <Link href="/" className="flex items-center gap-2" aria-label="Home">
           <img
             src={navbarConfig.logo.src}
-            className="w-8 bg-primary"
+            className="w-8 bg-white"
             alt={navbarConfig.logo.alt}
           />
           <span className="text-lg font-semibold">Shadcnblocks.com</span>
@@ -53,7 +53,7 @@ export const MobileNavbar: React.FC = React.memo(() => {
                   >
                     <img
                       src={navbarConfig.logo.src}
-                      className="w-8 bg-primary"
+                      className="w-8 bg-white"
                       alt={navbarConfig.logo.alt}
                     />
                     <span className="text-lg font-semibold">
@@ -133,8 +133,18 @@ export const MobileNavbar: React.FC = React.memo(() => {
               </div>
             </div>
             <div className="mt-6 flex flex-col gap-3">
-              <Button variant="outline">Log in</Button>
-              <Button>Sign up</Button>
+              <SheetClose asChild>
+                <Link href="/auth/sign-in" className="flex">
+                  <Button variant="outline" className="w-full">
+                    Log in
+                  </Button>
+                </Link>
+              </SheetClose>
+              <SheetClose asChild>
+                <Link href="/auth/sign-up" className="flex">
+                  <Button className="w-full">Sign up</Button>
+                </Link>
+              </SheetClose>
             </div>
             <SheetFooter className="absolute bottom-5 left-[50%] transform -translate-x-1/2">
               <div className="flex justify-center shrink-0">
