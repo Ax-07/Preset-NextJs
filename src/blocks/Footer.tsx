@@ -27,7 +27,7 @@ const Footer = () => {
                   <img
                     src="https://shadcnblocks.com/images/block/block-1.svg"
                     alt="blocks for shadcn/ui"
-                    className="h-10 bg-primary"
+                    className="h-10 bg-white"
                   />
                 <p className="text-xl font-semibold">Shadcnblocks.com</p>
                 </a>
