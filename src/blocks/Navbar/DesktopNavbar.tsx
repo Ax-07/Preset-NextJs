@@ -20,7 +20,7 @@ export const DesktopNavbar: React.FC = React.memo(() => {
           <Link href="/" className="flex items-center gap-2" aria-label="Home">
               <img
                 src={navbarConfig.logo.src}
-                className="w-8 bg-primary"
+                className="w-8 bg-white"
                 alt={navbarConfig.logo.alt}
               />
               <span className="text-lg font-semibold">{navbarConfig.siteName}</span>
@@ -58,11 +58,15 @@ export const DesktopNavbar: React.FC = React.memo(() => {
           </div>
         </div>
         <div className="flex items-center gap-4">
-          <Button variant="outline" size="sm">
-            Log in
-          </Button>
-          <Link href="/auth">
-              <Button size="sm">Sign up</Button>
+          <Link href="/auth/sign-in">
+            <Button variant="outline" size="sm">
+              Log in
+            </Button>
+          </Link>
+          <Link href="/auth/sign-up">
+              <Button size="sm">
+                Sign up
+              </Button>
           </Link>
         </div>
       </nav>
