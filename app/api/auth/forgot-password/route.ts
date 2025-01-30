@@ -1,7 +1,9 @@
+import { resetPasswordTemplate } from '@/src/lib/mail/templates';
 import { NextResponse } from "next/server";
 import { prisma } from "@/src/lib/prisma"; // votre instance Prisma
 import { randomBytes } from "crypto";
 import nodemailer from "nodemailer";
+import { sendMail } from "@/src/lib/mail/sendMail";
 
 export async function POST(request: Request) {
   try {
@@ -33,29 +35,14 @@ export async function POST(request: Request) {
 
     // 4) Envoyer l'email avec le lien de reset
     const resetUrl = `${process.env.NEXT_PUBLIC_APP_URL}/auth/reset-password?token=${resetToken}`;
-
-    // 5) Configurer le transport Nodemailer
-    const transporter = nodemailer.createTransport({
-      host: process.env.EMAIL_HOST,
-      port: Number(process.env.EMAIL_PORT),
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
-
+    const { subject, html } = resetPasswordTemplate(resetUrl);
     // 6) Envoyer l'email
-    await transporter.sendMail({
-      from: process.env.EMAIL_FROM, // "noreply@votredomaine.com"
+    await sendMail({
       to: email,
-      subject: "Réinitialisation de votre mot de passe",
-      html: `
-    <p>Bonjour,</p>
-    <p>Vous avez demandé à réinitialiser votre mot de passe. Cliquez sur ce lien pour créer un nouveau mot de passe :</p>
-    <a href="${resetUrl}" target="_blank">${resetUrl}</a>
-    <p>Ce lien expirera dans 1 heure.</p>
-  `,
-    });
+      subject: subject,
+      html: html,
+      // from: "vous@votre-domaine.com" // Optionnel, sinon prend la valeur par défaut du .env
+    })
 
     // 7) Réponse
     return NextResponse.json({ success: true });
