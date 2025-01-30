@@ -1,98 +1,142 @@
 "use client";
 
-import { useState } from "react";
+import React, { useState, FormEvent } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 
-export default function AuthForm() {
+/**
+ * Props pour rendre le composant plus flexible :
+ * - `registerUser?`: une fonction externe pour l'inscription (Dependency Injection).
+ * - `onSuccessRedirect?`: URL de redirection après connexion.
+ * - etc.
+ */
+type AuthFormProps = {
+  isRegistering: boolean;
+  registerUser?: (
+    name: string,
+    email: string,
+    password: string
+  ) => Promise<void>;
+  onSuccessRedirect?: string;
+};
+
+const AuthForm: React.FC<AuthFormProps> = ({
+  isRegistering,
+  registerUser,
+  onSuccessRedirect = "/",
+}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState(""); // Pour l'inscription
-  const [isRegistering, setIsRegistering] = useState(false);
   const [error, setError] = useState("");
   const router = useRouter();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError("");
 
-    if (isRegistering) {
-      // Inscription
-      const res = await fetch("/api/auth/register", {
-        method: "POST",
-        body: JSON.stringify({ name, email, password }),
-        headers: { "Content-Type": "application/json" },
+    try {
+      // --- 1) Gestion de l'inscription ---
+      if (isRegistering) {
+        // Si on nous a injecté une fonction registerUser, on l’utilise.
+        if (registerUser) {
+          await registerUser(name, email, password);
+        } else {
+          // Sinon, on fait un fetch par défaut vers "/api/auth/register"
+          const res = await fetch("/api/auth/register", {
+            method: "POST",
+            body: JSON.stringify({ name, email, password }),
+            headers: { "Content-Type": "application/json" },
+          });
+
+          if (!res.ok) {
+            const data = await res.json();
+            throw new Error(data.error || "Erreur lors de l'inscription.");
+          }
+        }
+      }
+
+      // --- 2) Connexion avec NextAuth Credentials ---
+      const result = await signIn("credentials", {
+        email,
+        password,
+        redirect: false, // On gère la redirection manuellement
       });
 
-      if (!res.ok) {
-        setError("Erreur lors de l'inscription !");
-        return;
+      if (result?.error) {
+        throw new Error(result.error);
       }
-    }
 
-    // Connexion avec NextAuth
-    const result = await signIn("credentials", {
-      email,
-      password,
-      redirect: false,
-    });
-
-    if (result?.error) {
-      setError(result.error);
-    } else {
-      router.push("/dashboard"); // Redirection après connexion
+      // --- 3) Redirection en cas de succès ---
+      router.push(onSuccessRedirect);
+    } catch (err: any) {
+      setError(err.message || "Une erreur est survenue.");
     }
   };
 
   return (
-    <div className="max-w-md mx-auto p-4 border rounded">
-      <h2 className="text-xl font-bold mb-4">
-        {isRegistering ? "Inscription" : "Connexion"}
-      </h2>
-
+    <div className="mx-auto w-full max-w-sm rounded-md shadow">
+      <div className="mb-4 flex flex-col items-center">
+        <p className="text-2xl font-bold">
+          {isRegistering ? "Inscription" : "Connexion"}
+        </p>
+      </div>
       {error && <p className="text-red-500">{error}</p>}
 
-      <form onSubmit={handleSubmit} className="space-y-3">
+      <form onSubmit={handleSubmit} className="grid gap-4">
         {isRegistering && (
-          <Input
-            type="text"
-            placeholder="Nom"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border rounded"
-          />
+          <>
+            <Label htmlFor="name" className="hidden">
+              Nom
+            </Label>
+            <Input
+              id="name"
+              type="text"
+              placeholder="Nom d'utilisateur"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              className="w-full border rounded"
+            />
+          </>
         )}
+        <Label htmlFor="email" className="hidden">
+          Email
+        </Label>
         <Input
+          id="email"
           type="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="w-full p-2 border rounded"
+          className="w-full border rounded"
           required
         />
-        <Input
-          type="password"
-          placeholder="Mot de passe"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          className="w-full p-2 border rounded"
-          required
-        />
-        <Button type="submit" className="mt-2 w-full">
+        <div className="flex flex-col">
+          <Label htmlFor="password" className="hidden">
+            Mot de passe
+          </Label>
+          <Input
+            id="password"
+            type="password"
+            placeholder="Mot de passe"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full border rounded"
+            required
+          />
+          <a href="/auth/forgot-password" className="text-sm text-primary ml-auto mt-2" >
+            Mot de passe oublié ?
+          </a>
+        </div>
+        <Button type="submit" className="w-full">
           {isRegistering ? "S'inscrire" : "Se connecter"}
         </Button>
       </form>
-
-      <Button
-        onClick={() => setIsRegistering(!isRegistering)}
-        className="mt-3 text-blue-500"
-      >
-        {isRegistering
-          ? "Déjà un compte ? Se connecter"
-          : "Pas encore de compte ? S'inscrire"}
-      </Button>
     </div>
   );
-}
+};
+
+export default AuthForm;
