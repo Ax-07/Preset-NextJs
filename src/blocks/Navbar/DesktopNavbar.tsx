@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/utils/tailwind_cn";
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -12,8 +12,9 @@ import { Button, buttonVariants } from "@/src/components/ui/button";
 import { ListItem } from "./ListItem";
 import Link from "next/link";
 import { navbarConfig } from "./navConfig";
+import { AuthButtons, SignInButtons } from "@/src/components/auth/AuthButtons";
 
-export const DesktopNavbar: React.FC = React.memo(() => {
+export const DesktopNavbar = () => {
     return (
       <nav className="hidden lg:flex justify-between items-center" aria-label="Main Navigation">
         <div className="flex items-center gap-6">
@@ -57,18 +58,10 @@ export const DesktopNavbar: React.FC = React.memo(() => {
             ))}
           </div>
         </div>
-        <div className="flex items-center gap-4">
-          <Link href="/auth/sign-in">
-            <Button variant="outline" size="sm">
-              Log in
-            </Button>
-          </Link>
-          <Link href="/auth/sign-up">
-              <Button size="sm">
-                Sign up
-              </Button>
-          </Link>
+        <div>
+        <AuthButtons />
+
         </div>
       </nav>
     );
-  });
+  };
