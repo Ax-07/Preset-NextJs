@@ -1,5 +1,5 @@
 import React from "react";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/utils/tailwind_cn";
 import { NavigationMenuLink } from "@radix-ui/react-navigation-menu";
 
 interface ListItemProps extends React.ComponentPropsWithoutRef<"a"> {
