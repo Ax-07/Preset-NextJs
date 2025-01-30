@@ -12,7 +12,7 @@ import {
   SheetTrigger,
 } from "@/src/components/ui/sheet";
 import { Button } from "@/src/components/ui/button";
-import { cn } from "@/src/lib/utils";
+import { cn } from "@/src/utils/tailwind_cn";
 import {
   Accordion,
   AccordionItem,
@@ -20,6 +20,7 @@ import {
   AccordionContent,
 } from "@/src/components/ui/accordion";
 import { navbarConfig } from "./navConfig";
+import { AuthButtons } from "@/src/components/auth/AuthButtons";
 
 export const MobileNavbar: React.FC = React.memo(() => {
   return (
@@ -134,16 +135,7 @@ export const MobileNavbar: React.FC = React.memo(() => {
             </div>
             <div className="mt-6 flex flex-col gap-3">
               <SheetClose asChild>
-                <Link href="/auth/sign-in" className="flex">
-                  <Button variant="outline" className="w-full">
-                    Log in
-                  </Button>
-                </Link>
-              </SheetClose>
-              <SheetClose asChild>
-                <Link href="/auth/sign-up" className="flex">
-                  <Button className="w-full">Sign up</Button>
-                </Link>
+                <AuthButtons className="flex-col"/>
               </SheetClose>
             </div>
             <SheetFooter className="absolute bottom-5 left-[50%] transform -translate-x-1/2">
