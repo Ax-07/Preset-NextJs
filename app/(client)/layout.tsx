@@ -1,9 +1,11 @@
+import React from "react";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 import Navbar from "@/src/blocks/Navbar/Navbar";
 import { cn } from "@/src/utils/tailwind_cn";
 import { SessionProvider } from "next-auth/react";
+import { ThemeProvider } from "@/src/components/themes/theme-provider";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -27,14 +29,28 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en"
+     suppressHydrationWarning={true}
+     >
       <body
-        className={cn(geistSans.variable, geistMono.variable, "antialiased container mx-auto dark")}
+        className={cn(
+          geistSans.variable,
+          geistMono.variable,
+          "antialiased container mx-auto"
+        )}
+        suppressHydrationWarning={true}
       >
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
         <SessionProvider>
-          <Navbar />
-          {children}
-        </SessionProvider>
+            <Navbar />
+            {children}
+          </SessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
