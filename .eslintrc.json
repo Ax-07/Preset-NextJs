@@ -1,3 +1,11 @@
 {
-  "extends": ["next/core-web-vitals", "next/typescript"]
+  "extends": [
+    "next/core-web-vitals",  // Use the Next.js recommended rules for Core Web Vitals
+    "next/typescript",      // Use the Next.js recommended rules for TypeScript
+    "next",                // Use the Next.js recommended rules
+    "plugin:@next/next/recommended",  // Use the Next.js recommended rules for ESLint plugins
+    "plugin:react/recommended",      // Use the recommended rules for React
+    "plugin:react-hooks/recommended", // Use the recommended rules for React Hooks
+    "plugin:tailwindcss/recommended" // Use the recommended rules for Tailwind CSS
+    ] 
 }
