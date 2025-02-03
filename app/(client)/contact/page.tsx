@@ -3,10 +3,10 @@ import React from "react";
 
 const ContactPage = () => {
   return (
-    <section id="contact-page" className="py-32 px-8">
+    <section id="contact-page" className="px-8 py-32">
       <div className="container">
-        <div className="flex lg:gap-20 max-w-[1280px] mx-auto">
-          <div className="flex flex-col items-center lg:items-start justify-between w-full max-w-96 mx-auto text-center lg:text-left">
+        <div className="mx-auto flex max-w-screen-xl lg:gap-20">
+          <div className="mx-auto flex w-full max-w-96 flex-col items-center justify-between text-center lg:items-start lg:text-left">
             <div>
               <h1 className="my-6 text-pretty text-4xl font-bold lg:text-6xl">
                 Contact Us
@@ -17,8 +17,8 @@ const ContactPage = () => {
               </p>
             </div>
             <div className="mb-8">
-              <h2 className="mb-5 text-2xl font-bold text-left">Contact Details</h2>
-              <ul className="flex flex-col ml-4 list-disc">
+              <h2 className="mb-5 text-left text-2xl font-bold">Contact Details</h2>
+              <ul className="ml-4 flex list-disc flex-col">
                 <li className="">
                   <span className="font-bold">Phone: </span>(+33) 6 12 34 56 78
                 </li>
