@@ -1,14 +1,12 @@
+// @/app/(client)/auth/page.tsx
 "use client";
 
+import React from "react";
 import {
   LoginWithGithubButton,
   LoginWithGoogleButton,
 } from "@/src/components/auth/AuthButtons";
-import AuthForm from "@/src/components/auth/AuthForm";
-import { Button } from "@/src/components/ui/button";
-import { Input } from "@/src/components/ui/input";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import AuthForm from "@/src/blocks/auth/AuthForm";
 import { useState } from "react";
 
 const Auth = () => {
@@ -23,7 +21,7 @@ const Auth = () => {
               <img
                 src="https://shadcnblocks.com/images/block/block-1.svg"
                 alt="logo"
-                className="mb-4 h-10 w-auto bg-primary p-1 rounded-full"
+                className="mb-4 h-10 w-auto rounded-full bg-primary p-1"
               />
               <p className="mb-2 text-2xl font-bold">Shadcnblocks.com</p>
               <p className="text-muted-foreground">
@@ -32,9 +30,9 @@ const Auth = () => {
             </div>
             <AuthForm isRegistering={isRegistering} />
             <div className="flex items-center space-x-4 p-4">
-              <hr className="border-muted-foreground w-full" />
+              <hr className="w-full border-muted-foreground" />
               <p className="mx-auto">or</p>
-              <hr className="border-muted-foreground w-full" />
+              <hr className="w-full border-muted-foreground" />
             </div>
             <LoginWithGoogleButton />
             <LoginWithGithubButton />
@@ -44,7 +42,7 @@ const Auth = () => {
               <>
                 <p>Déjà un compte ?</p>
                 <p
-                  className="font-medium text-primary cursor-pointer"
+                  className="cursor-pointer font-medium text-primary"
                   onClick={() => setIsRegistering(false)}
                 >
                   Se connecter
@@ -54,7 +52,7 @@ const Auth = () => {
               <>
                 <p>Pas encore de compte ?</p>
                 <p
-                  className="font-medium text-primary cursor-pointer"
+                  className="cursor-pointer font-medium text-primary"
                   onClick={() => setIsRegistering(true)}
                 >
                   S’inscrire
