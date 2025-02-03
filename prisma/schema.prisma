@@ -38,13 +38,14 @@ model Session {
   @@map("sessions")
 }
 
-model User {
+model User { 
   id               String    @id @default(cuid())
   name             String?
   email            String?   @unique
   password         String?
   emailVerified    DateTime? @map("email_verified")
   image            String?
+
   accounts         Account[]
   sessions         Session[]
 
