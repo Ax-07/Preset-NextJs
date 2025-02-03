@@ -1,3 +1,4 @@
+import React from "react";
 import {
     BarChartHorizontal,
     BatteryCharging,
@@ -48,7 +49,7 @@ import {
   
   const Feature: React.FC = () => {
     return (
-      <section id="feature" className="py-32 px-8 bg-secondary">
+      <section id="feature" className="bg-secondary px-8 py-32">
         <div className="container">
           <div className="mb-10 md:mb-20">
             <h2 className="mb-2 text-center text-3xl font-semibold lg:text-5xl">
