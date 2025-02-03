@@ -19,10 +19,10 @@ const Footer = () => {
   ];
 
   return (
-        <footer className="py-32 px-16 container">
+        <footer className="container px-16 py-32">
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-5">
             <div className="col-span-2 mb-8 lg:mb-0 ">
-              <div className="flex flex-col items-center lg:items-start gap-2 justify-center lg:justify-start">
+              <div className="flex flex-col items-center justify-center gap-2 lg:items-start lg:justify-start">
                 <a href="https://shadcnblocks.com" className="flex items-center gap-2">
                   <img
                     src="https://shadcnblocks.com/images/block/block-1.svg"
@@ -53,7 +53,7 @@ const Footer = () => {
               <h3 className="mb-4 font-bold">Social</h3>
               <ul className="space-y-4 text-muted-foreground">
                 {socialLinks.map((link, idx) => (
-                  <li key={idx} className="font-medium hover:text-primary flex items-center">
+                  <li key={idx} className="flex items-center font-medium hover:text-primary">
                     <a href={link.href} className="flex items-center gap-2">
                       {link.icon}
                       {link.name}
@@ -63,7 +63,7 @@ const Footer = () => {
               </ul>
             </div>
           </div>
-          <div className="mt-24 flex flex-col items-center lg:items-start justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center">
+          <div className="mt-24 flex flex-col items-center justify-between gap-4 border-t pt-8 text-sm font-medium text-muted-foreground md:flex-row md:items-center lg:items-start">
             <p>© 2024 Copyright. All rights reserved.</p>
             <ul className="flex gap-4">
               <li className="underline hover:text-primary">
