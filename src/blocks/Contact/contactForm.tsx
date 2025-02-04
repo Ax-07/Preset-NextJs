@@ -1,8 +1,10 @@
 "use client"
 
+import React from "react";
 import { Button } from "@/src/components/ui/button"
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/src/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/src/components/ui/form"
 import { Input } from "@/src/components/ui/input"
+import { Textarea } from "@/src/components/ui/textarea"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
@@ -31,6 +33,10 @@ const ContactForm = () => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       firstname: "",
+      lastname: "",
+      email: "",
+      subject: "",
+      message: "",
     },
   })
 
@@ -42,7 +48,7 @@ const ContactForm = () => {
   }
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8 p-10 mx-auto max-w-[768px] border-2 rounded-md">
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mx-auto max-w-screen-md space-y-4 rounded-md border-2 p-10">
         <div className="flex gap-4">
           <FormField
             control={form.control}
@@ -104,7 +110,8 @@ const ContactForm = () => {
             <FormItem className="w-full">
             <FormLabel>Message</FormLabel>
             <FormControl>
-              <Input placeholder="Message" {...field} />
+              {/* <Input placeholder="Message" {...field} /> */}
+              <Textarea placeholder="Message" {...field} rows={5} className="bg-primary-foreground"/>
             </FormControl>
             <FormMessage />
           </FormItem>
