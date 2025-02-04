@@ -20,7 +20,7 @@ export const ListItem = React.forwardRef<HTMLAnchorElement, ListItemProps>(
           )}
           {...props}
         >
-          <span className="flex-shrink-0">
+          <span className="shrink-0">
             {icon}
           </span>
           <div>
