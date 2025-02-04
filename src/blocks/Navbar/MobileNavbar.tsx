@@ -20,7 +20,7 @@ import {
   AccordionContent,
 } from "@/src/components/ui/accordion";
 import { navbarConfig } from "./navConfig";
-import { AuthButtons } from "@/src/components/auth/AuthButtons";
+import { AccountMenu } from "@/src/components/auth/AccountMenu";
 
 export const MobileNavbar: React.FC = React.memo(() => {
   return (
@@ -37,7 +37,7 @@ export const MobileNavbar: React.FC = React.memo(() => {
         <Sheet aria-describedby="mobile-menu">
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" aria-label="Open Menu">
-              <Menu className="w-5 h-5" />
+              <Menu className="size-5" />
             </Button>
           </SheetTrigger>
           <SheetContent
@@ -69,7 +69,7 @@ export const MobileNavbar: React.FC = React.memo(() => {
               <Accordion
                 type="single"
                 collapsible
-                className="flex flex-col w-full gap-4"
+                className="flex w-full flex-col gap-4"
               >
                 {navbarConfig.navItems.map((item, idx) => (
                   <AccordionItem
@@ -77,7 +77,7 @@ export const MobileNavbar: React.FC = React.memo(() => {
                     value={item.title}
                     className="border-b-0"
                   >
-                    <AccordionTrigger className="py-0 font-semibold hover:no-underline text-base mb-0">
+                    <AccordionTrigger className="mb-0 py-0 text-base font-semibold hover:no-underline">
                       {item.title}
                     </AccordionTrigger>
                     <AccordionContent className="mt-2">
@@ -89,7 +89,7 @@ export const MobileNavbar: React.FC = React.memo(() => {
                             )}
                             href={subItem.link}
                           >
-                            <span className="flex-shrink-0">
+                            <span className="shrink-0">
                               {subItem.icon}
                             </span>
                             <div>
@@ -135,11 +135,11 @@ export const MobileNavbar: React.FC = React.memo(() => {
             </div>
             <div className="mt-6 flex flex-col gap-3">
               <SheetClose asChild>
-                <AuthButtons className="flex-col"/>
+                <AccountMenu />
               </SheetClose>
             </div>
-            <SheetFooter className="absolute bottom-5 left-[50%] transform -translate-x-1/2">
-              <div className="flex justify-center shrink-0">
+            <SheetFooter className="absolute bottom-5 left-1/2 -translate-x-1/2">
+              <div className="flex shrink-0 justify-center">
                 <span className="text-muted-foreground">
                   © No rights reserved.
                 </span>
@@ -151,3 +151,5 @@ export const MobileNavbar: React.FC = React.memo(() => {
     </div>
   );
 });
+
+MobileNavbar.displayName = 'MobileNavbar';
