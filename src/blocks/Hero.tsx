@@ -1,11 +1,11 @@
+import React from "react";
 import { ArrowDownRight } from "lucide-react";
-import Image from "next/image";
 import { Badge } from "@/src/components/ui/badge";
 import { Button } from "@/src/components/ui/button";
 
 const Hero: React.FC = () => {
   return (
-    <section className="py-32 px-8">
+    <section className="px-8 py-32">
       <div className="container">
         <div className="grid items-center gap-8 lg:grid-cols-2">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
@@ -32,7 +32,7 @@ const Hero: React.FC = () => {
           <img
             src="https://shadcnblocks.com/images/block/placeholder-1.svg"
             alt="placeholder hero"
-            className="max-h-96 w-full rounded-md object-cover bg-primary-foreground"
+            className="max-h-96 w-full rounded-md bg-primary-foreground object-cover"
             width={768}
             height={400}
           />
