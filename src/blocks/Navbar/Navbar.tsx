@@ -11,7 +11,7 @@ const Navbar = () => {
 
   
   return (
-    <section className={`py-4 border-b ${fixedNav}`}>
+    <section className={`border-b py-4 ${fixedNav}`}>
       <div className="container mx-auto px-4">
         {isDesktop ? <DesktopNavbar/>
         : <MobileNavbar/>}
